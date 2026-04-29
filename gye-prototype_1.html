@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Smart — Good Youth Employer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --forest:#1B3A2D;--forest-mid:#2D5A42;--forest-light:#E8F0EB;
+  --clay:#C4622D;--clay-light:#F5E8DF;--clay-mid:#E08054;
+  --gold:#C9963A;--gold-light:#F7EDD8;
+  --parchment:#F8F4EE;--paper:#FFFCF7;
+  --ink:#1C1916;--ink-mid:#4A453F;--ink-soft:#7A7268;--ink-faint:#B5AFA6;
+  --border:#E4DDD3;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--parchment);color:var(--ink);font-weight:300;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(27,58,45,0.97);backdrop-filter:blur(12px);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;border-bottom:1px solid rgba(255,255,255,0.07);}
+.nav-brand{display:flex;align-items:center;gap:12px;}
+.nav-gem{width:30px;height:30px;border:1.5px solid rgba(201,150,58,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.nav-gem svg{width:14px;height:14px;}
+.nav-wordmark{font-family:'Playfair Display',serif;font-size:16px;color:#fff;letter-spacing:0.01em;}
+.nav-wordmark em{color:var(--gold);font-style:italic;}
+.nav-tabs{display:flex;}
+.nav-tab{background:none;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,0.4);font-family:'DM Sans',sans-serif;font-weight:400;font-size:13px;letter-spacing:0.02em;padding:0 15px;height:60px;cursor:pointer;transition:color 0.2s;}
+.nav-tab:hover{color:rgba(255,255,255,0.75);}
+.nav-tab.active{color:#fff;border-bottom-color:var(--gold);}
+.nav-pip{font-size:10px;background:var(--clay);color:#fff;padding:2px 6px;border-radius:20px;margin-left:5px;vertical-align:middle;}
+
+/* PAGES */
+.page{display:none;padding-top:60px;}
+.page.active{display:block;}
+
+/* HERO */
+.hero{background:var(--forest);min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem 2rem 4rem;text-align:center;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 15% 85%,rgba(201,150,58,0.09),transparent 55%),radial-gradient(ellipse 55% 70% at 85% 15%,rgba(196,98,45,0.07),transparent 55%);pointer-events:none;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;opacity:0.5;}
+.hero-pill{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(201,150,58,0.35);border-radius:40px;padding:5px 16px 5px 7px;margin-bottom:2.5rem;opacity:0;animation:fadeUp 0.6s 0.15s ease forwards;}
+.hero-pill-dot{width:26px;height:26px;background:rgba(201,150,58,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.hero-pill span{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);font-weight:400;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5.5vw,4.8rem);font-weight:400;line-height:1.1;color:#fff;max-width:740px;margin:0 auto 1.4rem;opacity:0;animation:fadeUp 0.7s 0.35s ease forwards;}
+.hero h1 em{color:var(--gold);font-style:italic;}
+.hero-body{font-size:1.05rem;font-weight:300;color:rgba(255,255,255,0.5);max-width:480px;margin:0 auto 3rem;line-height:1.85;opacity:0;animation:fadeUp 0.7s 0.55s ease forwards;}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.7s 0.75s ease forwards;}
+.btn-clay{background:var(--clay);color:#fff;border:none;padding:13px 30px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;border-radius:4px;cursor:pointer;transition:all 0.2s;letter-spacing:0.02em;}
+.btn-clay:hover{background:#a8511f;transform:translateY(-1px);}
+.btn-outline{background:transparent;color:rgba(255,255,255,0.65);border:1px solid rgba(255,255,255,0.18);padding:13px 30px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;border-radius:4px;cursor:pointer;transition:all 0.2s;}
+.btn-outline:hover{border-color:rgba(255,255,255,0.55);color:#fff;}
+
+/* JOURNEY */
+.journey{background:var(--paper);padding:5rem 2rem;}
+.journey-inner{max-width:980px;margin:0 auto;}
+.eyebrow{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;margin-bottom:0.6rem;}
+.section-h{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:400;line-height:1.2;margin-bottom:0.6rem;}
+.section-p{font-size:14px;font-weight:300;color:var(--ink-mid);line-height:1.85;margin-bottom:2.5rem;max-width:500px;}
+
+/* ANIMATED TIMELINE */
+.tl-wrap{position:relative;padding:16px 0 48px;}
+.tl-rail{position:absolute;top:44px;left:44px;right:44px;height:2px;background:var(--border);}
+.tl-progress{position:absolute;top:44px;left:44px;height:2px;background:linear-gradient(90deg,var(--forest),var(--clay));width:0;transition:width 2s cubic-bezier(0.4,0,0.2,1);}
+.tl-progress.drawn{width:calc(100% - 88px);}
+.tl-steps{display:flex;position:relative;z-index:2;}
+.tl-step{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;padding:0 6px;opacity:0;transform:translateY(14px);transition:opacity 0.5s,transform 0.5s;}
+.tl-step.vis{opacity:1;transform:translateY(0);}
+.tl-node{width:56px;height:56px;border-radius:50%;background:var(--paper);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:14px;transition:all 0.3s;font-family:'Playfair Display',serif;font-size:17px;color:var(--ink-faint);position:relative;}
+.tl-step:hover .tl-node{background:var(--forest);border-color:var(--forest);color:#fff;transform:scale(1.1);box-shadow:0 8px 24px rgba(27,58,45,0.22);}
+.tl-step-label{font-size:13px;font-weight:400;color:var(--ink-mid);line-height:1.3;margin-bottom:3px;}
+.tl-step-sub{font-size:11px;color:var(--ink-faint);}
+.tl-connector{position:absolute;top:43px;height:4px;background:var(--forest);opacity:0;transition:opacity 0.3s;}
+
+/* QUOTES */
+.quotes{background:var(--forest);padding:3.5rem 2rem;}
+.quotes-inner{max-width:960px;margin:0 auto;display:flex;gap:0;flex-wrap:wrap;}
+.q-item{flex:1;min-width:220px;padding:0 2.5rem;}
+.q-item:first-child{padding-left:0;}
+.q-item + .q-item{border-left:1px solid rgba(255,255,255,0.08);}
+.q-mark{font-family:'Playfair Display',serif;font-size:3.5rem;color:var(--gold);opacity:0.25;line-height:0.7;margin-bottom:0.6rem;}
+.q-text{font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;color:rgba(255,255,255,0.82);line-height:1.75;margin-bottom:0.6rem;}
+.q-src{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.05em;}
+
+/* MODULE CARDS */
+.modules-section{padding:4.5rem 2rem;background:var(--parchment);}
+.modules-inner{max-width:980px;margin:0 auto;}
+.modules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-top:2rem;}
+.m-card{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:1.75rem 1.4rem;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;text-align:left;}
+.m-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--forest),var(--clay));transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+.m-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(27,58,45,0.1);border-color:rgba(27,58,45,0.18);}
+.m-card:hover::after{transform:scaleX(1);}
+.m-num{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px;font-weight:400;}
+.m-icon{width:38px;height:38px;background:var(--forest-light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.m-icon svg{width:18px;height:18px;stroke:var(--forest);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.m-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:400;line-height:1.25;margin-bottom:0.5rem;}
+.m-desc{font-size:13px;font-weight:300;color:var(--ink-mid);line-height:1.6;margin-bottom:1.25rem;}
+.m-footer{display:flex;align-items:center;justify-content:space-between;}
+.m-time{font-size:12px;color:var(--clay);}
+.m-arrow{width:26px;height:26px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.m-card:hover .m-arrow{background:var(--forest);border-color:var(--forest);}
+.m-arrow svg{width:13px;height:13px;stroke:var(--ink-faint);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.2s;}
+.m-card:hover .m-arrow svg{stroke:#fff;}
+
+/* EVIDENCE STRIP */
+.evidence{padding:4rem 2rem;background:var(--paper);}
+.evidence-inner{max-width:980px;margin:0 auto;}
+.callout-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:1.5rem;}
+.callout{border-radius:10px;padding:1.25rem;border:1px solid transparent;}
+.callout.g{background:var(--forest-light);border-color:rgba(27,58,45,0.1);}
+.callout.c{background:var(--clay-light);border-color:rgba(196,98,45,0.1);}
+.callout.au{background:var(--gold-light);border-color:rgba(201,150,58,0.12);}
+.callout-lbl{font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:7px;}
+.callout.g .callout-lbl{color:var(--forest-mid);}
+.callout.c .callout-lbl{color:var(--clay);}
+.callout.au .callout-lbl{color:var(--gold);}
+.callout-txt{font-size:13px;font-weight:300;line-height:1.65;}
+.callout.g .callout-txt{color:#263d30;}
+.callout.c .callout-txt{color:#6b3018;}
+.callout.au .callout-txt{color:#5a4010;}
+
+/* MODULE HEADER */
+.mod-header{background:var(--forest);padding:3.5rem 2rem 3rem;}
+.mod-header-inner{max-width:840px;margin:0 auto;}
+.back-btn{display:inline-flex;align-items:center;gap:7px;background:none;border:none;color:rgba(255,255,255,0.35);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-bottom:1.75rem;padding:0;transition:color 0.2s;}
+.back-btn:hover{color:rgba(255,255,255,0.75);}
+.back-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.mod-tag{display:inline-block;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,150,58,0.3);padding:3px 13px;border-radius:20px;margin-bottom:1rem;font-weight:400;}
+.mod-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:400;color:#fff;line-height:1.15;margin-bottom:0.7rem;}
+.mod-header p{font-size:14px;font-weight:300;color:rgba(255,255,255,0.5);line-height:1.85;max-width:500px;}
+
+/* PROGRESS */
+.prog-wrap{background:var(--paper);border-bottom:1px solid var(--border);padding:11px 2rem;}
+.prog-inner{max-width:840px;margin:0 auto;display:flex;align-items:center;gap:12px;font-size:12px;color:var(--ink-faint);}
+.prog-track{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--clay);border-radius:2px;transition:width 0.4s ease;}
+
+/* CONTENT */
+.cw{max-width:840px;margin:0 auto;padding:3rem 2rem;}
+.cb{margin-bottom:3rem;}
+.cb+.cb{border-top:1px solid var(--border);padding-top:3rem;}
+.ch3{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:400;margin-bottom:0.9rem;line-height:1.25;}
+.cp{font-size:14px;font-weight:300;color:var(--ink-mid);line-height:1.9;margin-bottom:1rem;}
+.cp:last-child{margin-bottom:0;}
+
+/* CHECKLIST */
+.cl{list-style:none;margin-top:1.25rem;display:flex;flex-direction:column;gap:8px;}
+.cl li{display:flex;align-items:flex-start;gap:12px;font-size:14px;font-weight:300;color:var(--ink-mid);line-height:1.6;padding:11px 13px;background:var(--paper);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.2s;}
+.cl li:hover{border-color:rgba(27,58,45,0.2);}
+.cl li.done{background:var(--forest-light);border-color:rgba(27,58,45,0.14);color:var(--forest);}
+.cb-box{width:20px;height:20px;min-width:20px;border:1.5px solid var(--border);border-radius:5px;background:#fff;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.cl li.done .cb-box{background:var(--forest);border-color:var(--forest);}
+.cb-box svg{width:11px;height:11px;stroke:#fff;stroke-width:2.5;fill:none;opacity:0;transition:opacity 0.15s;}
+.cl li.done .cb-box svg{opacity:1;}
+
+/* PULL QUOTE */
+.pq{border-left:3px solid var(--clay);padding:1.1rem 1.6rem;background:var(--clay-light);border-radius:0 10px 10px 0;margin:1.5rem 0;}
+.pq p{font-family:'Playfair Display',serif;font-size:1.05rem;font-style:italic;color:var(--ink);line-height:1.7;margin-bottom:5px;}
+.pq cite{font-size:12px;color:var(--ink-soft);font-style:normal;}
+
+/* NEXT */
+.next-cta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;background:var(--forest);border-radius:12px;padding:1.75rem 2rem;margin-top:1rem;}
+.next-cta-t h4{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;color:#fff;margin-bottom:3px;}
+.next-cta-t p{font-size:13px;color:rgba(255,255,255,0.4);}
+.btn-next{background:var(--clay);color:#fff;border:none;padding:11px 24px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;border-radius:4px;cursor:pointer;transition:background 0.2s;white-space:nowrap;}
+.btn-next:hover{background:#a8511f;}
+
+/* FORM */
+.form-card{background:var(--paper);border:1px solid var(--border);border-radius:14px;padding:2.25rem;margin-top:1.25rem;}
+.form-card h4{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:400;margin-bottom:0.35rem;}
+.form-card>p{font-size:13px;font-weight:300;color:var(--ink-mid);margin-bottom:1.75rem;line-height:1.7;}
+.ff{margin-bottom:1.2rem;}
+.ff label{display:block;font-size:11px;font-weight:400;letter-spacing:0.05em;color:var(--ink-soft);margin-bottom:5px;}
+.ff input,.ff select,.ff textarea{width:100%;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--ink);background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 13px;outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
+.ff input:focus,.ff select:focus,.ff textarea:focus{border-color:var(--forest);box-shadow:0 0 0 3px rgba(27,58,45,0.07);}
+.ff textarea{min-height:80px;resize:vertical;}
+.ff-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.btn-save{background:var(--forest);color:#fff;border:none;padding:11px 26px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;border-radius:4px;cursor:pointer;transition:background 0.2s;margin-top:0.25rem;}
+.btn-save:hover{background:var(--forest-mid);}
+.saved-msg{display:none;font-size:13px;color:var(--forest);padding:10px 0;font-weight:400;}
+
+/* FOOTER */
+.site-footer{background:var(--forest);padding:3rem 2rem;text-align:center;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;margin-bottom:6px;}
+.footer-brand em{color:var(--gold);}
+.footer-org{font-size:12px;color:rgba(255,255,255,0.3);letter-spacing:0.05em;}
+.footer-rule{width:36px;height:1px;background:rgba(255,255,255,0.12);margin:1.4rem auto;}
+.footer-note{font-size:11px;color:rgba(255,255,255,0.18);}
+
+/* REVEAL */
+.rev{opacity:0;transform:translateY(16px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.rev.in{opacity:1;transform:none;}
+
+/* KEYFRAMES */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+@media(max-width:660px){
+  .nav-tabs{display:none;}
+  .hero h1{font-size:2.1rem;}
+  .tl-steps{flex-direction:column;align-items:flex-start;gap:20px;}
+  .tl-rail,.tl-progress{display:none;}
+  .tl-step{flex-direction:row;text-align:left;gap:14px;}
+  .tl-node{min-width:48px;height:48px;margin-bottom:0;}
+  .ff-2{grid-template-columns:1fr;}
+  .quotes-inner{flex-direction:column;}
+  .q-item+.q-item{border-left:none;border-top:1px solid rgba(255,255,255,0.08);padding-left:0;padding-top:1.5rem;margin-top:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-gem">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 1L13 5V9L7 13L1 9V5L7 1Z" stroke="#C9963A" stroke-width="1.2"/>
+        <circle cx="7" cy="7" r="2" fill="#C9963A"/>
+      </svg>
+    </div>
+    <div class="nav-wordmark">Start <em>Smart</em></div>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="go('home',this)">Overview</button>
+    <button class="nav-tab" onclick="go('before',this)">Before they start</button>
+    <button class="nav-tab" onclick="go('firstday',this)">First day</button>
+    <button class="nav-tab" onclick="go('firstweek',this)">First week</button>
+    <button class="nav-tab" onclick="go('knowthem',this)">Know your person <span class="nav-pip">New</span></button>
+  </div>
+</nav>
+
+<!-- ════════════ HOME ════════════ -->
+<div id="home" class="page active">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-pill">
+      <div class="hero-pill-dot"><svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3" fill="#C9963A"/></svg></div>
+      <span>Good Youth Employer · Pilot 2026 · YEA Aotearoa</span>
+    </div>
+    <h1>A better start for every <em>young person</em> you hire</h1>
+    <p class="hero-body">Built from workshops with rangatahi Māori, Pasifika youth, neurodivergent young people, and employers across Aotearoa. Pick what's relevant. Use it when you need it.</p>
+    <div class="hero-ctas">
+      <button class="btn-clay" onclick="go('before',document.querySelectorAll('.nav-tab')[1])">Start from the beginning</button>
+      <button class="btn-outline" onclick="go('knowthem',document.querySelectorAll('.nav-tab')[4])">Know your person →</button>
+    </div>
+  </section>
+
+  <section class="journey">
+    <div class="journey-inner">
+      <p class="eyebrow rev">The journey</p>
+      <h2 class="section-h rev">Four moments that shape everything</h2>
+      <p class="section-p rev">You don't need to use all of it. Pick the moment you're in and start there.</p>
+      <div class="tl-wrap rev" id="tl-wrap">
+        <div class="tl-rail"></div>
+        <div class="tl-progress" id="tl-prog"></div>
+        <div class="tl-steps">
+          <div class="tl-step" id="ts0" onclick="go('before',document.querySelectorAll('.nav-tab')[1])">
+            <div class="tl-node">01</div>
+            <div class="tl-step-label">Before<br>they start</div>
+            <div class="tl-step-sub">15 min</div>
+          </div>
+          <div class="tl-step" id="ts1" onclick="go('firstday',document.querySelectorAll('.nav-tab')[2])">
+            <div class="tl-node">02</div>
+            <div class="tl-step-label">First<br>day</div>
+            <div class="tl-step-sub">10 min</div>
+          </div>
+          <div class="tl-step" id="ts2" onclick="go('firstweek',document.querySelectorAll('.nav-tab')[3])">
+            <div class="tl-node">03</div>
+            <div class="tl-step-label">First<br>week</div>
+            <div class="tl-step-sub">12 min</div>
+          </div>
+          <div class="tl-step" id="ts3" onclick="go('knowthem',document.querySelectorAll('.nav-tab')[4])">
+            <div class="tl-node">04</div>
+            <div class="tl-step-label">Know your<br>person</div>
+            <div class="tl-step-sub">5 min</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quotes">
+    <div class="quotes-inner">
+      <div class="q-item">
+        <div class="q-mark">"</div>
+        <p class="q-text">My manager says hi every morning and bye every afternoon — it makes me want to turn up and work harder.</p>
+        <div class="q-src">Youth voice survey participant</div>
+      </div>
+      <div class="q-item">
+        <div class="q-mark">"</div>
+        <p class="q-text">I need people to be black and white with the information they give me. Guessing makes me nervous.</p>
+        <div class="q-src">Kai &amp; Kōrero session</div>
+      </div>
+      <div class="q-item">
+        <div class="q-mark">"</div>
+        <p class="q-text">Ask the question: what do you need? Then actually listen to the answer.</p>
+        <div class="q-src">Youth voice survey participant</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="modules-section">
+    <div class="modules-inner">
+      <p class="eyebrow rev">The resource</p>
+      <h2 class="section-h rev">Choose where to start</h2>
+      <div class="modules-grid">
+        <div class="m-card rev" onclick="go('before',document.querySelectorAll('.nav-tab')[1])">
+          <div class="m-num">01 ——</div>
+          <div class="m-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 000 4h6a2 2 0 000-4M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div>
+          <div class="m-title">Before they start</div>
+          <div class="m-desc">Foundations before day one. What to prepare, communicate, and think about ahead of time.</div>
+          <div class="m-footer"><div class="m-time">⏱ 15 min</div><div class="m-arrow"><svg viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"/></svg></div></div>
+        </div>
+        <div class="m-card rev" onclick="go('firstday',document.querySelectorAll('.nav-tab')[2])">
+          <div class="m-num">02 ——</div>
+          <div class="m-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+          <div class="m-title">First day</div>
+          <div class="m-desc">How to welcome someone in a way they'll actually remember. The practical and the human.</div>
+          <div class="m-footer"><div class="m-time">⏱ 10 min</div><div class="m-arrow"><svg viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"/></svg></div></div>
+        </div>
+        <div class="m-card rev" onclick="go('firstweek',document.querySelectorAll('.nav-tab')[3])">
+          <div class="m-num">03 ——</div>
+          <div class="m-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+          <div class="m-title">First week</div>
+          <div class="m-desc">Building trust and setting expectations — clearly, without micromanaging.</div>
+          <div class="m-footer"><div class="m-time">⏱ 12 min</div><div class="m-arrow"><svg viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"/></svg></div></div>
+        </div>
+        <div class="m-card rev" onclick="go('knowthem',document.querySelectorAll('.nav-tab')[4])">
+          <div class="m-num">04 ——</div>
+          <div class="m-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="m-title">Know your person</div>
+          <div class="m-desc">A short conversation guide for the specific young person you've just hired.</div>
+          <div class="m-footer"><div class="m-time">⏱ 5 min</div><div class="m-arrow"><svg viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"/></svg></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="evidence">
+    <div class="evidence-inner">
+      <p class="eyebrow rev">Built on evidence</p>
+      <h2 class="section-h rev">Real voices. Real workplaces.</h2>
+      <p class="section-p rev">Four working group workshops, Kai &amp; Kōrero sessions with rangatahi, and a national youth voice survey. Everything here came from listening first.</p>
+      <div class="callout-row rev">
+        <div class="callout g"><div class="callout-lbl">What rangatahi need</div><div class="callout-txt">To be welcomed as a whole person — not just a worker filling a role. To know the unwritten rules before they accidentally break them.</div></div>
+        <div class="callout c"><div class="callout-lbl">Where employers struggle</div><div class="callout-txt">Adjusting communication styles. Finding the time. Not knowing what they don't know about the young person in front of them.</div></div>
+        <div class="callout au"><div class="callout-lbl">Where they meet</div><div class="callout-txt">Both want trusted relationships and good outcomes. This resource helps them find the middle ground — faster.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-brand">Start <em>Smart</em></div>
+    <div class="footer-org">Good Youth Employer &nbsp;·&nbsp; Youth Employability Aotearoa</div>
+    <div class="footer-rule"></div>
+    <div class="footer-note">Pilot resource · 2026 · Not a final product</div>
+  </footer>
+</div>
+
+<!-- ════════════ BEFORE THEY START ════════════ -->
+<div id="before" class="page">
+  <div class="mod-header">
+    <div class="mod-header-inner">
+      <button class="back-btn" onclick="go('home',document.querySelectorAll('.nav-tab')[0])"><svg viewBox="0 0 14 14"><path d="M9 3L5 7l4 4"/></svg> All modules</button>
+      <div class="mod-tag">Module 01</div>
+      <h2>Before they start</h2>
+      <p>The work you do before day one determines how day one feels. Most of it takes less than an hour.</p>
+    </div>
+  </div>
+  <div class="prog-wrap"><div class="prog-inner"><span>Checklist</span><div class="prog-track"><div class="prog-fill" id="pb" style="width:0%"></div></div><span id="pc">0 / 6</span></div></div>
+  <div class="cw">
+    <div class="cb">
+      <h3 class="ch3">Tell them what to expect</h3>
+      <p class="cp">Young people — especially those who are neurodivergent or starting their first role — often arrive anxious about things experienced workers take for granted. Where do I go? What do I wear? Who do I ask for?</p>
+      <div class="pq"><p>"I need people to be black and white with the information they give me."</p><cite>— Young person, Kai &amp; Kōrero session</cite></div>
+      <ul class="cl" id="cl-before">
+        <li onclick="tick(this,'b',6,'pb','pc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Tell them what time to arrive and exactly where to go</span></li>
+        <li onclick="tick(this,'b',6,'pb','pc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Let them know what to wear — or that it genuinely doesn't matter</span></li>
+        <li onclick="tick(this,'b',6,'pb','pc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Tell them who to ask for when they arrive</span></li>
+        <li onclick="tick(this,'b',6,'pb','pc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Give them a heads-up on what the first day will roughly look like</span></li>
+        <li onclick="tick(this,'b',6,'pb','pc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Tell them they won't be expected to know everything immediately</span></li>
+        <li onclick="tick(this,'b',6,'pb','pc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Prepare your team — ask them to make the effort to welcome someone new</span></li>
+      </ul>
+    </div>
+    <div class="cb">
+      <h3 class="ch3">Make the implicit explicit</h3>
+      <p class="cp">Every workplace has unwritten rules. For young people without work experience — or from different cultural backgrounds — these invisible rules are the biggest source of early confusion and exits.</p>
+      <div class="callout-row">
+        <div class="callout g"><div class="callout-lbl">Worth writing down</div><div class="callout-txt">How do breaks actually work here? Is it okay to ask the same question twice? What does "on time" mean — exactly on the dot, or five minutes before?</div></div>
+        <div class="callout c"><div class="callout-lbl">What the research found</div><div class="callout-txt">Young people said job descriptions often don't match reality. Being upfront about what the role actually involves builds trust from day one.</div></div>
+      </div>
+    </div>
+    <div class="next-cta"><div class="next-cta-t"><h4>Next: First day →</h4><p>How to welcome them in a way that actually lands.</p></div><button class="btn-next" onclick="go('firstday',document.querySelectorAll('.nav-tab')[2])">Continue</button></div>
+  </div>
+</div>
+
+<!-- ════════════ FIRST DAY ════════════ -->
+<div id="firstday" class="page">
+  <div class="mod-header">
+    <div class="mod-header-inner">
+      <button class="back-btn" onclick="go('home',document.querySelectorAll('.nav-tab')[0])"><svg viewBox="0 0 14 14"><path d="M9 3L5 7l4 4"/></svg> All modules</button>
+      <div class="mod-tag">Module 02</div>
+      <h2>First day</h2>
+      <p>The first day sets the tone for everything that follows. It doesn't need to be perfect — it needs to be human.</p>
+    </div>
+  </div>
+  <div class="prog-wrap"><div class="prog-inner"><span>Checklist</span><div class="prog-track"><div class="prog-fill" id="pd" style="width:0%"></div></div><span id="pdc">0 / 5</span></div></div>
+  <div class="cw">
+    <div class="cb">
+      <h3 class="ch3">The welcome matters more than the paperwork</h3>
+      <p class="cp">It's tempting to start with forms and inductions. But young people consistently said the thing they remember is whether they felt welcomed as a person — not processed as a new hire.</p>
+      <div class="pq"><p>"Welcome new employees with a mihi — informal or formal. Have food prepped and encourage interaction. Don't go straight into business."</p><cite>— Youth voice survey participant</cite></div>
+      <ul class="cl">
+        <li onclick="tick(this,'d',5,'pd','pdc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Introduce them to everyone by name — not just job title</span></li>
+        <li onclick="tick(this,'d',5,'pd','pdc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Have somewhere clearly theirs — a desk, a locker, a hook for their bag</span></li>
+        <li onclick="tick(this,'d',5,'pd','pdc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Assign a buddy — someone they can ask "silly" questions of without embarrassment</span></li>
+        <li onclick="tick(this,'d',5,'pd','pdc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Share kai together if you can — even just morning tea</span></li>
+        <li onclick="tick(this,'d',5,'pd','pdc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Don't start them on the busiest shift of the week</span></li>
+      </ul>
+    </div>
+    <div class="cb">
+      <h3 class="ch3">Silence isn't disengagement</h3>
+      <p class="cp">Don't assume a young person not asking questions means they understand everything. Young people from Pasifika backgrounds may be hesitant to speak up. Neurodivergent employees process information differently. Build in a moment at the end of the day to check in privately — make it easy to say "I'm not sure about something."</p>
+      <div class="pq"><p>"Asking questions may seem like a challenge or reflect badly. Younger Pasifika siblings do not speak around elders — and can slip into this mindset at work."</p><cite>— Working group participant</cite></div>
+    </div>
+    <div class="next-cta"><div class="next-cta-t"><h4>Next: First week →</h4><p>Building the relationship while they find their feet.</p></div><button class="btn-next" onclick="go('firstweek',document.querySelectorAll('.nav-tab')[3])">Continue</button></div>
+  </div>
+</div>
+
+<!-- ════════════ FIRST WEEK ════════════ -->
+<div id="firstweek" class="page">
+  <div class="mod-header">
+    <div class="mod-header-inner">
+      <button class="back-btn" onclick="go('home',document.querySelectorAll('.nav-tab')[0])"><svg viewBox="0 0 14 14"><path d="M9 3L5 7l4 4"/></svg> All modules</button>
+      <div class="mod-tag">Module 03</div>
+      <h2>First week</h2>
+      <p>The first week is about trust — both ways. Enough structure to feel safe, enough space to actually learn.</p>
+    </div>
+  </div>
+  <div class="prog-wrap"><div class="prog-inner"><span>Checklist</span><div class="prog-track"><div class="prog-fill" id="pw" style="width:0%"></div></div><span id="pwc">0 / 5</span></div></div>
+  <div class="cw">
+    <div class="cb">
+      <h3 class="ch3">Check in — don't check up</h3>
+      <p class="cp">There's a real difference between checking in (how are you going, what do you need?) and checking up (are you doing what I told you?). Young people feel the difference immediately. A five-minute daily check-in in the first week makes a bigger difference than a formal review at the end of the month.</p>
+      <ul class="cl">
+        <li onclick="tick(this,'w',5,'pw','pwc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Schedule a 5-minute check-in each day for the first week</span></li>
+        <li onclick="tick(this,'w',5,'pw','pwc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Ask "what's one thing that wasn't clear today?" and normalise it</span></li>
+        <li onclick="tick(this,'w',5,'pw','pwc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Tell them explicitly: no question is a stupid question here</span></li>
+        <li onclick="tick(this,'w',5,'pw','pwc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Give them a task they can complete successfully this week</span></li>
+        <li onclick="tick(this,'w',5,'pw','pwc')"><div class="cb-box"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div><span>Acknowledge when they do something well — out loud, specifically</span></li>
+      </ul>
+    </div>
+    <div class="cb">
+      <h3 class="ch3">What good looks like</h3>
+      <p class="cp">The most common early exits come from mismatched expectations. Young people need to know what good looks like before they can hit the mark.</p>
+      <div class="callout-row">
+        <div class="callout g"><div class="callout-lbl">Be specific</div><div class="callout-txt">"Here's what done looks like, and here's when I need it by" — not just "do a good job on this."</div></div>
+        <div class="callout au"><div class="callout-lbl">Deadlines work</div><div class="callout-txt">For neurodivergent employees especially — clear deadlines help, not hinder. "If there's no deadline, why would I do it?"</div></div>
+        <div class="callout c"><div class="callout-lbl">Mistakes are part of it</div><div class="callout-txt">Cool down, then address it. Making people feel like bad people reduces their willingness to try new things.</div></div>
+      </div>
+    </div>
+    <div class="next-cta"><div class="next-cta-t"><h4>Finally: Know your person →</h4><p>Capture what makes your specific employee tick.</p></div><button class="btn-next" onclick="go('knowthem',document.querySelectorAll('.nav-tab')[4])">Continue</button></div>
+  </div>
+</div>
+
+<!-- ════════════ KNOW YOUR PERSON ════════════ -->
+<div id="knowthem" class="page">
+  <div class="mod-header">
+    <div class="mod-header-inner">
+      <button class="back-btn" onclick="go('home',document.querySelectorAll('.nav-tab')[0])"><svg viewBox="0 0 14 14"><path d="M9 3L5 7l4 4"/></svg> All modules</button>
+      <div class="mod-tag">Module 04 — Young person profile</div>
+      <h2>Know your person</h2>
+      <p>Not a form to file away. A starting point for a conversation — fill it in together if you can.</p>
+    </div>
+  </div>
+  <div class="cw">
+    <div class="cb">
+      <h3 class="ch3">Why this matters</h3>
+      <p class="cp">The research is clear: young people want to be seen as individuals — not as "a young person" filling a role. The quickest way to build trust is to know something real about who they are before things go wrong.</p>
+      <div class="pq"><p>"Ask the question: what do you need? Then actually listen to the answer."</p><cite>— Youth voice survey participant</cite></div>
+      <p class="cp">Use the questions below as a guide. Spread them across the first week — the goal is a conversation, not an interview.</p>
+    </div>
+    <div class="cb">
+      <div class="form-card">
+        <h4>About this person</h4>
+        <p>Nothing here needs to be shared beyond you and them. Fill in what's useful.</p>
+        <div class="ff"><label>Name (and how they like to be addressed)</label><input type="text" placeholder="e.g. Alex, or Ālex at home but Alex at work is fine"></div>
+        <div class="ff-2">
+          <div class="ff"><label>Pronouns (if they want to share)</label><input type="text" placeholder="she/her, they/them..."></div>
+          <div class="ff"><label>Cultural background (if they want to share)</label><input type="text" placeholder="Māori, Pasifika, NZ European..."></div>
+        </div>
+        <div class="ff"><label>How do they prefer to receive feedback?</label>
+          <select><option value="">— ask them and note it here —</option><option>Directly and straight away</option><option>In writing so I can process it</option><option>In a private one-on-one</option><option>After I've had time to process — not in the moment</option><option>Not sure yet — check in after week two</option></select>
+        </div>
+        <div class="ff"><label>How do they prefer to ask questions?</label>
+          <select><option value="">— ask them and note it here —</option><option>Drop by and ask in person whenever</option><option>Message first so I'm not put on the spot</option><option>Scheduled check-in works best for me</option><option>I'll figure it out and ask if I'm really stuck</option></select>
+        </div>
+        <div class="ff"><label>Anything about how they work best that I should know?</label><textarea placeholder="e.g. needs clear deadlines, works better with headphones, family commitments on Thursdays, doesn't process info well in a noisy space..."></textarea></div>
+        <div class="ff"><label>One thing that would make their first month easier</label><textarea placeholder="Ask them this directly in your first one-on-one. Write their answer here." style="min-height:65px;"></textarea></div>
+        <button class="btn-save" onclick="saveForm()">Save this profile</button>
+        <div class="saved-msg" id="saved-msg">✓ Saved. Review this in your week two check-in.</div>
+      </div>
+    </div>
+    <div class="cb">
+      <h3 class="ch3">A note on disclosure</h3>
+      <p class="cp">Young people told us they want to share what they need — but on their own terms, and only to the extent it affects their work. They shouldn't have to name a disability to receive basic flexibility.</p>
+      <div class="callout-row">
+        <div class="callout g"><div class="callout-lbl">What works</div><div class="callout-txt">Ask "what would make this job easier for you?" early — before anything has gone wrong. This opens the door without requiring disclosure.</div></div>
+        <div class="callout c"><div class="callout-lbl">What doesn't</div><div class="callout-txt">Requiring a young person to justify a disability to receive an accommodation. They may not know themselves yet what they need — it takes time and trial.</div></div>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-brand">Start <em>Smart</em></div>
+    <div class="footer-org">Good Youth Employer &nbsp;·&nbsp; Youth Employability Aotearoa</div>
+    <div class="footer-rule"></div>
+    <div class="footer-note">Pilot resource · 2026 · Not a final product</div>
+  </footer>
+</div>
+
+<script>
+function go(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(btn)btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>{
+    initReveal();
+    if(id==='home')setTimeout(drawTimeline,500);
+  },50);
+}
+
+function drawTimeline(){
+  const p=document.getElementById('tl-prog');
+  if(p)p.classList.add('drawn');
+  [0,1,2,3].forEach((i)=>{
+    setTimeout(()=>{
+      const el=document.getElementById('ts'+i);
+      if(el)el.classList.add('vis');
+    },400+i*350);
+  });
+}
+
+function tick(li,key,total,barId,countId){
+  li.classList.toggle('done');
+  const done=li.closest('.cl').querySelectorAll('li.done').length;
+  const bar=document.getElementById(barId);
+  const lbl=document.getElementById(countId);
+  if(bar)bar.style.width=Math.round(done/total*100)+'%';
+  if(lbl)lbl.textContent=done+' / '+total;
+}
+
+function saveForm(){
+  const m=document.getElementById('saved-msg');
+  m.style.display='block';
+  setTimeout(()=>m.style.display='none',4000);
+}
+
+function initReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.page.active .rev').forEach(el=>{
+    el.classList.remove('in');
+    obs.observe(el);
+  });
+}
+
+window.addEventListener('load',()=>{
+  initReveal();
+  setTimeout(drawTimeline,700);
+});
+</script>
+</body>
+</html>
